@@ -30,12 +30,28 @@ var TodoItem = React.createClass({displayName: "TodoItem",
         };
     },
 
+    getInitialState: function() {
+        return {
+            completed: this.props.completed
+        };
+    },
+
+    toggleCompleted: function() {
+        this.setState({ completed: !this.state.completed });
+    },
+
     render: function() {
+        var title = this.props.title;
+
+        if (this.state.completed) {
+            var title = React.createElement("strike", null,  this.props.title);
+        }
+
         return (
             React.createElement("div", null, 
                 React.createElement("p", null, 
-                    React.createElement("input", {type: "checkbox", checked:  this.props.completed}), 
-                     this.props.title
+                    React.createElement("input", {type: "checkbox", checked:  this.state.completed, onChange:  this.toggleCompleted}), 
+                     title 
                 )
             )
         );
