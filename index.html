@@ -3,7 +3,23 @@
   <head>
     <title>Hello React!</title>
     <script src="build/react.js"></script>
-    <!-- No need for JSXTransformer! -->
+    <style>
+      .todo-item.completed label {
+        text-decoration: line-through;
+      }
+
+      .todo-item .editor {
+        display: none; 
+      }
+
+      .todo-item.editing .editor {
+        display: inline;
+      }
+
+      .todo-item.editing label {
+        display: none;
+      }
+    </style>
   </head>
   <body>
     <div id="content"></div>

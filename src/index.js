@@ -32,31 +32,44 @@ var TodoItem = React.createClass({
 
     getInitialState: function() {
         return {
-            completed: this.props.completed
+            completed : this.props.completed,
+            editing   : false
         };
     },
 
-    toggleCompleted: function() {
+    toggleCompleted: function(v) {
         this.setState({ completed: !this.state.completed });
     },
 
+    toggleEditing: function() {
+        this.setState({ editing: true });
+    },
+
+    update: function() {
+        alert("whoa");
+    },
+
     render: function() {
-        var title = this.props.title;
+        var classNames = ["todo-item"];
 
         if (this.state.completed) {
-            var title = <strike>{ this.props.title }</strike>;
+          classNames.push("completed");
+        }
+
+        if (this.state.editing) {
+          classNames.push("editing");
         }
 
         return (
-            <div>
+            <div className={ classNames.join(" ") }>
                 <p>
                     <input type="checkbox" checked={ this.state.completed } onChange={ this.toggleCompleted } />
-                    { title }
+                    <label onDoubleClick={ this.toggleEditing }>{ this.props.title }</label>
+                    <input value={ this.props.title } className="editor" />
                 </p>
             </div>
         );
     }
-
 });
 
 var TodoList = React.createClass({
